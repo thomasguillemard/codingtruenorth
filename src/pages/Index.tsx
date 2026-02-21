@@ -6,6 +6,7 @@ import ProblemSection from "@/components/ProblemSection";
 import WorkflowSection from "@/components/WorkflowSection";
 import PrioritizationSection from "@/components/PrioritizationSection";
 import IntegrationsSection from "@/components/IntegrationsSection";
+import PRDReviewSection from "@/components/PRDReviewSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -30,6 +31,7 @@ const Index = () => {
       <WorkflowSection />
       <PrioritizationSection />
       <IntegrationsSection />
+      <PRDReviewSection />
       <CTASection />
       <Footer />
     </div>
