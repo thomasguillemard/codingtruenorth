@@ -17,15 +17,20 @@ const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-4xl mx-auto text-center"
         >
-          {/* Badge */}
+          {/* Badge button */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 mb-8"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-glow" />
-            <span className="text-xs font-medium text-primary">Now accepting early access requests</span>
+            <Link
+              to="/early-access"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 mb-8 hover:bg-primary/10 transition-colors"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-glow" />
+              <span className="text-xs font-medium text-primary">Get Early Access</span>
+              <ArrowRight size={12} className="text-primary" />
+            </Link>
           </motion.div>
 
           {/* Headline */}
