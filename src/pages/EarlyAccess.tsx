@@ -95,12 +95,6 @@ const EarlyAccess = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 mb-8">
-              <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-xs font-medium text-muted-foreground">
-                <span className="text-foreground font-semibold">{count - 12}</span> PMs joined yesterday
-              </span>
-            </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-black leading-[1.05] mb-6 max-w-4xl mx-auto">
               Join the product leaders{" "}
