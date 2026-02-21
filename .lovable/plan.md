@@ -1,45 +1,79 @@
 
 
-## Prioritization Engine Section -- Redesign
+## Animated Pipeline: Prioritization Engine Redesign
 
-### What's wrong today
+### Concept
 
-- The 4 stat cards on the left are disconnected vanity metrics ("2,847 signals analyzed", "94% alignment score"). They don't explain the product or build trust -- they're just filler.
-- The ranking table on the right shows a final output (ranked features) but never explains *how* the score is calculated, which is the core differentiator.
-- There's no narrative arc: nothing tells the visitor "here's what goes in, here's what happens, here's what comes out."
+Replace the current static three-column layout with a **sequentially animated pipeline** that visually shows data "flowing" from raw signals through the scoring engine to the final ranked output. The animation triggers on scroll and plays out like a live demo of the product working.
 
-### Proposed redesign: "Input -> Engine -> Output" storytelling
+### How It Works
 
-Replace the current two-column layout with a **three-step visual narrative** that walks the visitor through how TrueNorth's prioritization actually works.
+The section will animate in **four timed phases** as the user scrolls into view:
 
-#### Structure
+**Phase 1 -- Raw Signals Arrive (0s-1s)**
+- Individual signal cards (Jira ticket, support thread, sales call transcript, analytics event) slide in from the left one by one
+- Each card looks like a mini-ticket with a realistic label (e.g., "JIRA-1042: Users can't export CSV", "Support: 47 users requesting dark mode")
+- A pulsing dot or streaming particle trail shows them feeding into a central funnel
 
-**Section header** (keep similar copy, slightly refined):
-- Tagline: "Prioritization Engine"
-- Headline: "From raw signals to ranked priorities"
-- Subtitle: "TrueNorth ingests feedback from every channel, weighs it against your business objectives, and outputs a confidence-ranked backlog -- no spreadsheets, no debates."
+**Phase 2 -- Signals Funnel Into the Engine (1s-2s)**
+- The signal cards shrink/fade and visually "compress" into a central processing block
+- An animated connecting line (a dashed path or glowing trail) draws from the signals area to the scoring engine
+- The scoring engine block lights up, showing it's "processing"
 
-**Three-column breakdown** (on desktop; stacks on mobile):
+**Phase 3 -- Scoring Dimensions Activate (2s-3.5s)**
+- Inside the engine block, the three scoring bars (Demand, Strategic Fit, Effort) animate from 0% to their values sequentially
+- Each bar fills with a slight delay, like the engine is calculating each dimension one at a time
+- Small labels appear showing what each dimension evaluates
 
-| Column | Title | Content |
-|--------|-------|---------|
-| 1. Signals In | "Every voice, one funnel" | Shows 3-4 source chips (Support tickets, User interviews, Analytics events, Sales calls) with mock counts, illustrating that the engine aggregates diverse input. |
-| 2. Scoring Engine | "Weighted confidence scoring" | A small visual showing the 3 scoring dimensions: **Demand** (how many users want it), **Strategic fit** (alignment to business goals), **Effort estimate** (complexity). Each with a mini bar or icon. This is the "how" that's currently missing. |
-| 3. Ranked Output | "Your prioritized backlog" | A compact ranked list (3-4 items) similar to the current table, but each row now shows the three dimension scores that feed into the final confidence number, making the output feel earned and transparent. |
+**Phase 4 -- Ranked Output Emerges (3.5s-5s)**
+- An animated connecting line draws from the engine to the output panel
+- The ranked feature rows fade in one by one from top to bottom, each showing its confidence score
+- The top-ranked item gets a subtle glow highlight to draw attention to the "winner"
 
-**Below the three columns**, optionally keep a single standout stat line, e.g.: "Teams using TrueNorth cut prioritization debates by 80% and ship the right features 3x faster." -- one clear value statement instead of four vague cards.
+### Visual Layout
 
-### Technical changes
+On desktop, the layout is a **horizontal pipeline** with animated SVG connector lines between the three stages. On mobile, it stacks vertically with downward-flowing connectors.
 
-- **File modified**: `src/components/PrioritizationSection.tsx` (full rewrite of the component)
-- **No new dependencies** -- uses existing `framer-motion`, `lucide-react` icons, and Tailwind classes
-- **Data**: Replace the current `features` and `mockFeatures` arrays with new structured data for the three columns (sources, scoring dimensions, ranked output with per-dimension scores)
-- **Layout**: Switch from `lg:grid-cols-2` to a `lg:grid-cols-3` grid with connecting visual hints (subtle arrows or step numbers) between columns
-- **Mobile**: Columns stack vertically with step numbers (1, 2, 3) to preserve the narrative flow
+```text
++------------------+       +------------------+       +------------------+
+|   RAW SIGNALS    | ----> |  SCORING ENGINE   | ----> |  RANKED OUTPUT   |
+|                  |       |                   |       |                  |
+| JIRA-1042        |  ~~~> | Demand    [====] |  ~~~> | 1. Collaboration |
+| Support #847     |       | Fit       [=====]|       | 2. Rate limiting |
+| Sales call note  |       | Effort    [===]  |       | 3. Report builder|
+| Analytics event  |       |                   |       | 4. Slack bot     |
++------------------+       +------------------+       +------------------+
+```
 
-### What this achieves
+The `---->` connectors are animated dashed lines or glowing particle trails that draw when data "flows" between stages.
 
-- Visitors immediately understand *what goes in* (raw signals), *what happens* (weighted scoring across three dimensions), and *what comes out* (a ranked backlog with transparent scores)
-- The section now explains the product's core differentiator rather than displaying meaningless stats
-- The ranking table becomes more credible because you can see *why* each feature scored the way it did
+### Technical Details
 
+**File modified:** `src/components/PrioritizationSection.tsx` (rewrite)
+
+**Data changes:**
+- Replace generic source labels with realistic ticket-like entries (e.g., "JIRA-1042: Users requesting CSV export", "Support: Dark mode requests (47 threads)")
+- Keep the scoring dimensions and ranked output data similar to current
+
+**Animation approach (Framer Motion):**
+- Use `useInView` to detect when the section enters the viewport and trigger the full sequence
+- Use staggered `variants` with increasing `delay` values across the four phases
+- Animated SVG connector paths using `motion.path` with `pathLength` animation (draws the line from 0 to 1)
+- The progress bars already animate with `whileInView` -- extend this pattern to the full pipeline
+
+**Connector lines:**
+- SVG `path` elements positioned between the three cards using absolute positioning
+- On desktop: horizontal curved paths; on mobile: short vertical paths
+- Animated with `motion.path` using `pathLength` going from 0 to 1
+- Styled with a dashed stroke in the primary color with a subtle glow
+
+**No new dependencies** -- all achievable with existing `framer-motion` SVG animation capabilities and `lucide-react` icons.
+
+**Mobile behavior:** Columns stack vertically. Connector lines become short downward arrows/paths between blocks. Step numbers remain for narrative clarity.
+
+### What This Achieves
+
+- The section now **feels like a product demo** -- visitors watch the engine work in real time
+- The flow from "messy raw signals" to "clean ranked output" is viscerally clear
+- The realistic ticket labels (Jira, support threads) make the product tangible and relatable to PM personas
+- The animated connectors create a sense of data movement that static columns can't achieve
