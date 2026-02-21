@@ -5,10 +5,10 @@ import logo from "@/assets/logo.png";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { label: "Problem", href: "#problem" },
-  { label: "Workflow", href: "#workflow" },
-  { label: "Prioritization", href: "#prioritization" },
-  { label: "Integrations", href: "#integrations" },
+  { label: "Problem", href: "/#problem" },
+  { label: "Workflow", href: "/#workflow" },
+  { label: "Prioritization", href: "/#prioritization" },
+  { label: "Integrations", href: "/#integrations" },
   { label: "Blog", href: "/blog" },
 ];
 
@@ -18,10 +18,10 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
+        <a href="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2">
           <img src={logo} alt="TrueNorth logo" className="h-8 w-8 rounded-lg object-contain" />
           <span className="font-bold text-lg text-foreground">TrueNorth</span>
-        </Link>
+        </a>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
