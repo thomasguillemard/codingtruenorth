@@ -72,15 +72,22 @@ const PrioritizationSection = () => {
         </div>
 
         {/* Value statement */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 4.5 }}
-          className="text-center text-sm text-muted-foreground mt-12 max-w-xl mx-auto"
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+          transition={{ delay: 4.5, duration: 0.6 }}
+          className="flex items-center justify-center gap-12 mt-16 whitespace-nowrap"
         >
-          Teams using TrueNorth cut prioritization debates by <span className="text-foreground font-semibold">80%</span>{" "}
-          and ship the right features <span className="text-foreground font-semibold">3× faster</span>.
-        </motion.p>
+          <div className="flex items-center gap-2 text-muted-foreground text-sm">
+            <span>Prioritization debates cut by</span>
+            <span className="text-2xl font-black text-primary">80%</span>
+          </div>
+          <div className="h-6 w-px bg-border" />
+          <div className="flex items-center gap-2 text-muted-foreground text-sm">
+            <span>Ship the right features</span>
+            <span className="text-2xl font-black text-primary">3× faster</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
