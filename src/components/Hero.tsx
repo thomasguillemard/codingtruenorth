@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -43,13 +44,13 @@ const Hero = () => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="#cta"
+            <Link
+              to="/early-access"
               className="inline-flex h-12 px-8 items-center gap-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-primary"
             >
               Get Early Access
               <ArrowRight size={16} />
-            </a>
+            </Link>
             <a
               href="#workflow"
               className="inline-flex h-12 px-8 items-center gap-2 rounded-lg border border-border text-foreground font-medium text-sm hover:bg-secondary transition-colors"

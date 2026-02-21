@@ -36,9 +36,9 @@ const Navbar = () => {
               </a>
             )
           )}
-          <a href="#cta" className="inline-flex h-9 px-4 items-center rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
+          <Link to="/early-access" className="inline-flex h-9 px-4 items-center rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
             Get Early Access
-          </a>
+          </Link>
         </div>
 
         {/* Mobile toggle */}
@@ -68,9 +68,9 @@ const Navbar = () => {
                   </a>
                 )
               )}
-              <a href="#cta" onClick={() => setOpen(false)} className="inline-flex h-9 px-4 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-medium">
+              <Link to="/early-access" onClick={() => setOpen(false)} className="inline-flex h-9 px-4 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-medium">
                 Get Early Access
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
