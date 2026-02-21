@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, FileText, Users, Sparkles, Check, Mail, Zap } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { supabase } from "@/integrations/supabase/client";
 
 const BASE_COUNT = 847;
 
@@ -36,6 +37,7 @@ const EarlyAccess = () => {
   const [count, setCount] = useState(BASE_COUNT - 30);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const target = BASE_COUNT + Math.floor(Math.random() * 40);
@@ -57,9 +59,25 @@ const EarlyAccess = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (!email || submitting) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from("early_access_signups")
+        .insert({ email: email.trim().toLowerCase() });
+      if (error && error.code === "23505") {
+        // duplicate — still show success
+      } else if (error) {
+        throw error;
+      }
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Signup error:", err);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -173,10 +191,11 @@ const EarlyAccess = () => {
                   />
                   <button
                     type="submit"
-                    className="inline-flex h-12 px-6 items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-primary"
+                    disabled={submitting}
+                    className="inline-flex h-12 px-6 items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-primary disabled:opacity-60"
                   >
-                    Get instant access
-                    <ArrowRight size={16} />
+                    {submitting ? "Submitting…" : "Get instant access"}
+                    {!submitting && <ArrowRight size={16} />}
                   </button>
                 </motion.form>
               ) : (
