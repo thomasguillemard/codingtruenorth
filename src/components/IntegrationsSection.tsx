@@ -23,13 +23,14 @@ const IntegrationsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-xs font-mono font-medium text-primary uppercase tracking-widest mb-4 block">Integrations</span>
+          <span className="text-xs font-mono font-medium text-primary uppercase tracking-widest mb-4 block">
+            Integrations
+          </span>
           <h2 className="text-3xl md:text-5xl font-black mb-6">
-            Plugs into your{" "}
-            <span className="text-gradient-primary">existing stack</span>
+            Plugs into your <span className="text-gradient-primary">existing stack</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            TrueNorth connects to the tools your team already uses—no migration required.
+            TrueNorth connects to the tools your team already uses without painful migration required.
           </p>
         </motion.div>
 
