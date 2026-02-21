@@ -1,35 +1,64 @@
+## Early Access onboarding page
 
+### Overview
 
-## Blog section: sentence-case titles and expandable articles
+Create a dedicated `/early-access` page that serves as the primary signup destination. It combines urgency, social proof, and a clear value proposition: sign up with your email and immediately receive access to the free PRD Review Analysis tool, with the full open beta coming soon.
 
-### Changes
+### Page structure (top to bottom)
 
-**1. Fix title casing**
+**1. Hero banner with live counter**
 
-Update all four blog post titles from title case to sentence case:
+- Headline: "Join the product leaders shaping what's next"
+- A live animated counter showing how many people have already signed up (starts at a base number like 847, incremented randomly on page load to feel dynamic)
+- Animated counting effect using `useEffect` + `setInterval` that ticks up from a lower number to the "current" count
+- Pulsing green dot + "X PMs joined yesterday" social proof line
 
-- "Stop building the wrong things faster"
-- "The death of the ticket manager PM"
-- "Continuous discovery at scale with AI"
-- "Confidence scores: the end of gut-feel prioritization"
+**2. What you get immediately (3 feature cards, horizontal on desktop)**
 
-**2. Expandable/collapsible article cards**
+- Card 1: "Access to our PRD review analysis" Submit your PRD and get an AI-powered evaluation of clarity, completeness, and prioritization gaps. Sent straight to your inbox.
+- Card 2: "Open beta access" Be among the first to use TrueNorth's prioritization engine when it launches. Early users shape the product.
+- Card 3: "Product strategy insights" Weekly curated insights on what top PMs are doing differently. No fluff, only signal.
 
-Each blog card becomes a toggle. Clicking it expands the card to reveal the full article body below the excerpt. Clicking again collapses it back.
+Each card animates in sequentially with staggered delays.
 
-- Add a `content` field to each post object containing 2-3 paragraphs of generated article text
-- Track the currently expanded post slug in a `useState` (only one open at a time, or `null` for all closed)
-- On click, toggle the expanded state for that article
-- Use `framer-motion`'s `AnimatePresence` and `motion.div` with `animate={{ height: "auto" }}` for a smooth expand/collapse transition
-- The arrow icon rotates downward when expanded, back to right when collapsed
-- The expanded content area appears below the excerpt with a top border separator and slightly different text styling for readability
+**3. Email signup form (centered, prominent)**
+
+- Large email input + "Get instant access" button with arrow icon
+- Below the form: small trust line "No spam. Unsubscribe anytime."
+- On submit: the form transitions to a success state with confetti-style animation showing "Check your inbox -- your PRD review access is on its way"
+
+**4. Roadmap teaser ("What's coming")**
+
+- A minimal vertical timeline with 3 milestones:
+  - "Now" -- Free PRD review analysis (marked as available with a green check)
+  - "Q2 2026"  Open beta: full prioritization engine
+- Each milestone animates in on scroll
+
+**5. Bottom CTA**
+
+- "The best PMs don't wait for perfect tools. They shape them." with a secondary signup form or scroll-to-top button
+
+### Navigation updates
+
+- Add `/early-access` route in `App.tsx`
+- Update "Get Early Access" buttons in Navbar, Hero, and CTASection to link to `/early-access` instead of `#cta`
+- Keep the `#cta` section on Index as a secondary inline signup
 
 ### Technical details
 
-**File modified:** `src/pages/Blog.tsx`
+**New file:** `src/pages/EarlyAccess.tsx`
 
-- Add `useState<string | null>` to track `expandedSlug`
-- Add a `content` string property to each post in the `posts` array (multi-paragraph article body)
-- Wrap the article body in `AnimatePresence` + `motion.div` with `initial={{ height: 0, opacity: 0 }}` / `animate={{ height: "auto", opacity: 1 }}` / `exit={{ height: 0, opacity: 0 }}`
-- Replace the `ArrowRight` icon with a `ChevronDown` that rotates based on expanded state (`rotate: expandedSlug === post.slug ? 180 : 0`)
-- No new dependencies needed
+- Uses `framer-motion` for all animations (staggered cards, counter tick-up, success state transition)
+- Animated counter: `useState` + `useEffect` with `setInterval` that increments from `baseCount - 30` to `baseCount` over ~2 seconds
+- Email form with `useState` for email and submitted state (same pattern as CTASection)
+- Responsive: single column on mobile, 3-column grid for feature cards on desktop
+- Includes `Navbar` and `Footer` for consistent layout
+- Icons from `lucide-react`: `Mail`, `Sparkles`, `Users`, `Check`, `ArrowRight`, `Zap`, `FileText`
+
+**Modified files:**
+
+- `src/App.tsx` -- add `<Route path="/early-access" element={<EarlyAccess />} />`
+- `src/components/Navbar.tsx` -- change "Get Early Access" `href="#cta"` to `Link to="/early-access"`
+- `src/components/Hero.tsx` -- change "Get Early Access" `href="#cta"` to a `Link to="/early-access"`
+
+No new dependencies required.
