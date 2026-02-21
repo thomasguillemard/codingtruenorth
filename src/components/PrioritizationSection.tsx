@@ -37,13 +37,11 @@ const PrioritizationSection = () => {
             Prioritization Engine
           </span>
           <h2 className="text-3xl md:text-5xl font-black mb-6">
-            From raw signals to{" "}
-            <span className="text-gradient-primary">ranked priorities</span>
+            From raw signals to <span className="text-gradient-primary">ranked priorities</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            TrueNorth ingests feedback from every channel, weighs it against your
-            business objectives, and outputs a confidence-ranked backlog — no
-            spreadsheets, no debates.
+            TrueNorth ingests feedback from every channel, weighs it against your business objectives, and outputs a
+            confidence-ranked backlog. No more spreadsheets, no more debates.
           </p>
         </motion.div>
 
@@ -57,11 +55,7 @@ const PrioritizationSection = () => {
             onProcessingComplete={handleProcessingComplete}
           />
           <PipelineConnector isInView={isInView} delay={3.2} />
-          <RankedOutput
-            isInView={isInView}
-            updateTrigger={outputTrigger}
-            engineScores={engineScores}
-          />
+          <RankedOutput isInView={isInView} updateTrigger={outputTrigger} engineScores={engineScores} />
         </div>
 
         {/* Mobile: vertical pipeline */}
@@ -74,11 +68,7 @@ const PrioritizationSection = () => {
             onProcessingComplete={handleProcessingComplete}
           />
           <PipelineConnector isInView={isInView} delay={3.2} direction="vertical" />
-          <RankedOutput
-            isInView={isInView}
-            updateTrigger={outputTrigger}
-            engineScores={engineScores}
-          />
+          <RankedOutput isInView={isInView} updateTrigger={outputTrigger} engineScores={engineScores} />
         </div>
 
         {/* Value statement */}
@@ -88,10 +78,8 @@ const PrioritizationSection = () => {
           transition={{ delay: 4.5 }}
           className="text-center text-sm text-muted-foreground mt-12 max-w-xl mx-auto"
         >
-          Teams using TrueNorth cut prioritization debates by{" "}
-          <span className="text-foreground font-semibold">80%</span> and ship the
-          right features{" "}
-          <span className="text-foreground font-semibold">3× faster</span>.
+          Teams using TrueNorth cut prioritization debates by <span className="text-foreground font-semibold">80%</span>{" "}
+          and ship the right features <span className="text-foreground font-semibold">3× faster</span>.
         </motion.p>
       </div>
     </section>
