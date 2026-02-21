@@ -1,59 +1,35 @@
 
 
-## Workflow Section: Horizontal Animated Flow Redesign
+## Blog section: sentence-case titles and expandable articles
 
-### Problem
+### Changes
 
-The current layout uses a vertical timeline with a static `1px` line on the left side (`bg-border`). This feels flat and disconnected -- the line doesn't animate, doesn't convey movement, and the vertical stacking doesn't communicate a "flow" or progression.
+**1. Fix title casing**
 
-### Proposed Redesign
+Update all four blog post titles from title case to sentence case:
 
-Replace the vertical timeline with a **horizontal left-to-right flow** on desktop, where each step is a card connected by animated SVG paths (similar to the Prioritization Engine pipeline). On mobile, it stacks vertically with animated downward connectors.
+- "Stop building the wrong things faster"
+- "The death of the ticket manager PM"
+- "Continuous discovery at scale with AI"
+- "Confidence scores: the end of gut-feel prioritization"
 
-### Layout
+**2. Expandable/collapsible article cards**
 
-**Desktop (4 columns with animated connectors between them):**
+Each blog card becomes a toggle. Clicking it expands the card to reveal the full article body below the excerpt. Clicking again collapses it back.
 
-```text
-+------------+  ~~~>  +------------+  ~~~>  +------------+  ~~~>  +------------+
-| Discovery  |        | Prioritize |        | Spec Gen   |        | Handoff    |
-|   [icon]   |        |   [icon]   |        |   [icon]   |        |   [icon]   |
-| 01         |        | 02         |        | 03         |        | 04         |
-| desc...    |        | desc...    |        | desc...    |        | desc...    |
-+------------+        +------------+        +------------+        +------------+
-```
+- Add a `content` field to each post object containing 2-3 paragraphs of generated article text
+- Track the currently expanded post slug in a `useState` (only one open at a time, or `null` for all closed)
+- On click, toggle the expanded state for that article
+- Use `framer-motion`'s `AnimatePresence` and `motion.div` with `animate={{ height: "auto" }}` for a smooth expand/collapse transition
+- The arrow icon rotates downward when expanded, back to right when collapsed
+- The expanded content area appears below the excerpt with a top border separator and slightly different text styling for readability
 
-The `~~~>` connectors are animated dashed SVG lines with a traveling glow dot (reusing the same `PipelineConnector` pattern from the Prioritization section).
+### Technical details
 
-**Mobile:** Cards stack vertically with short animated vertical connectors between them.
+**File modified:** `src/pages/Blog.tsx`
 
-### Animation Sequence
-
-Each step and connector animates sequentially on scroll using `useInView`:
-
-1. **Step 1 card** fades in (0s)
-2. **Connector 1** draws left-to-right (0.3s)
-3. **Step 2 card** fades in (0.6s)
-4. **Connector 2** draws (0.9s)
-5. **Step 3 card** fades in (1.2s)
-6. **Connector 3** draws (1.5s)
-7. **Step 4 card** fades in (1.8s) -- the final "Handoff" step gets a subtle accent glow
-
-### Visual Style for Each Card
-
-- Step number badge (01, 02, 03, 04) in a small rounded circle
-- Icon centered above the title
-- Title bold, description below in muted text
-- Bordered card with `bg-card` background, matching the rest of the site's design language
-- The last step (Handoff to Agents) uses the accent color to signal the "output" stage
-
-### Technical Details
-
-- **File modified:** `src/components/WorkflowSection.tsx` (rewrite)
-- **Reuses:** `PipelineConnector` component from `src/components/prioritization/PipelineConnector.tsx` for the animated SVG connectors
-- **Animation:** `framer-motion` `useInView` with staggered delays for sequential reveal
-- **No new dependencies**
-- **Desktop grid:** `lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]` (4 cards + 3 connectors)
-- **Mobile:** Vertical stack with `PipelineConnector direction="vertical"` between each card
-- Removes the static `bg-border` line entirely
-
+- Add `useState<string | null>` to track `expandedSlug`
+- Add a `content` string property to each post in the `posts` array (multi-paragraph article body)
+- Wrap the article body in `AnimatePresence` + `motion.div` with `initial={{ height: 0, opacity: 0 }}` / `animate={{ height: "auto", opacity: 1 }}` / `exit={{ height: 0, opacity: 0 }}`
+- Replace the `ArrowRight` icon with a `ChevronDown` that rotates based on expanded state (`rotate: expandedSlug === post.slug ? 180 : 0`)
+- No new dependencies needed
