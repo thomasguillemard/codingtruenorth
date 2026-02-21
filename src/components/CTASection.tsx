@@ -22,43 +22,43 @@ const CTASection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="max-w-2xl mx-auto text-center"
-        >
+          className="max-w-2xl mx-auto text-center">
+
           <h2 className="text-3xl md:text-5xl font-black mb-6">
             Stop building the{" "}
             <span className="text-gradient-warm">wrong things faster</span>
           </h2>
-          <p className="text-muted-foreground text-lg mb-10">
-            Join the waitlist for early access. Be among the first PMs to transform from ticket manager to product strategist.
+          <p className="text-muted-foreground text-lg mb-10">Join the waitlist for early access. Be among the first PMs to transform from ticket manager to product strategist and gain access to our free PRD review analysis.
+
           </p>
 
-          {!submitted ? (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          {!submitted ?
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@company.com"
-                className="flex-1 h-12 px-4 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@company.com"
+              className="flex-1 h-12 px-4 rounded-lg border border-border bg-card text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/50" />
+
               <button
-                type="submit"
-                className="inline-flex h-12 px-6 items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-primary"
-              >
+              type="submit"
+              className="inline-flex h-12 px-6 items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-primary">
+
                 Get Access
                 <ArrowRight size={16} />
               </button>
-            </form>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-6 py-3 text-primary font-medium"
-            >
+            </form> :
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-6 py-3 text-primary font-medium">
+
               ✓ You're on the list. We'll be in touch soon.
             </motion.div>
-          )}
+          }
 
           <p className="text-xs text-muted-foreground mt-6">
             Want a live demo instead?{" "}
@@ -66,8 +66,8 @@ const CTASection = () => {
           </p>
         </motion.div>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default CTASection;
