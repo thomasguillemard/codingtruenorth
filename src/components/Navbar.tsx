@@ -36,9 +36,9 @@ const Navbar = () => {
               </a>
             )
           )}
-          <Link to="/early-access" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="inline-flex h-9 px-4 items-center rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
+          <a href="/#early-access" className="inline-flex h-9 px-4 items-center rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity">
             Get Early Access
-          </Link>
+          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -68,9 +68,9 @@ const Navbar = () => {
                   </a>
                 )
               )}
-              <Link to="/early-access" onClick={() => { setOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="inline-flex h-9 px-4 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-medium">
+              <a href="/#early-access" onClick={() => setOpen(false)} className="inline-flex h-9 px-4 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-medium">
                 Get Early Access
-              </Link>
+              </a>
             </div>
           </motion.div>
         )}
