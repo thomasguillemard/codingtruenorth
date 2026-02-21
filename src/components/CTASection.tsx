@@ -1,15 +1,27 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const CTASection = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
+    if (!email || submitting) return;
+    setSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from("early_access_signups")
+        .insert({ email: email.trim().toLowerCase() });
+      if (error && error.code !== "23505") throw error;
       setSubmitted(true);
+    } catch (err) {
+      console.error("Signup error:", err);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -44,10 +56,11 @@ const CTASection = () => {
 
               <button
               type="submit"
-              className="inline-flex h-12 px-6 items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-primary">
+              disabled={submitting}
+              className="inline-flex h-12 px-6 items-center justify-center gap-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-primary disabled:opacity-60">
 
-                Get Access
-                <ArrowRight size={16} />
+                {submitting ? "Submitting…" : "Get Access"}
+                {!submitting && <ArrowRight size={16} />}
               </button>
             </form> :
 
