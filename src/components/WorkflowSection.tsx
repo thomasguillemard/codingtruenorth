@@ -56,7 +56,7 @@ const WorkflowSection = () => {
 
         <div className="relative max-w-3xl mx-auto">
           {/* Connecting line */}
-          <div className="absolute left-8 top-0 bottom-0 w-px bg-border hidden md:block" />
+          
 
           <div className="space-y-8">
             {steps.map((step, i) =>
