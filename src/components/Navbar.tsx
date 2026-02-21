@@ -9,7 +9,7 @@ const navLinks = [
   { label: "Workflow", href: "/#workflow" },
   { label: "Prioritization", href: "/#prioritization" },
   { label: "Integrations", href: "/#integrations" },
-  { label: "Blog", href: "/blog" },
+  
 ];
 
 const Navbar = () => {

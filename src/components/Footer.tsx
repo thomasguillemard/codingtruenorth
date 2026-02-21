@@ -15,7 +15,7 @@ const Footer = () => {
             <a href="/#problem" className="hover:text-foreground transition-colors">Problem</a>
             <a href="/#workflow" className="hover:text-foreground transition-colors">Workflow</a>
             <a href="/#integrations" className="hover:text-foreground transition-colors">Integrations</a>
-            <Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link>
+            
           </div>
 
           <p className="text-xs text-muted-foreground">© 2026 TrueNorth. All rights reserved.</p>
