@@ -12,9 +12,9 @@ const Footer = () => {
           </Link>
 
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#problem" className="hover:text-foreground transition-colors">Problem</a>
-            <a href="#workflow" className="hover:text-foreground transition-colors">Workflow</a>
-            <a href="#integrations" className="hover:text-foreground transition-colors">Integrations</a>
+            <a href="/#problem" className="hover:text-foreground transition-colors">Problem</a>
+            <a href="/#workflow" className="hover:text-foreground transition-colors">Workflow</a>
+            <a href="/#integrations" className="hover:text-foreground transition-colors">Integrations</a>
             <Link to="/blog" className="hover:text-foreground transition-colors">Blog</Link>
           </div>
 
