@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import SignalsColumn from "./prioritization/SignalsColumn";
 import ScoringEngine from "./prioritization/ScoringEngine";
@@ -8,6 +8,19 @@ import PipelineConnector from "./prioritization/PipelineConnector";
 const PrioritizationSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+
+  const [processingTrigger, setProcessingTrigger] = useState(0);
+  const [outputTrigger, setOutputTrigger] = useState(0);
+  const [engineScores, setEngineScores] = useState([82, 91, 64]);
+
+  const handleSignalChange = useCallback(() => {
+    setProcessingTrigger((t) => t + 1);
+  }, []);
+
+  const handleProcessingComplete = useCallback((scores: number[]) => {
+    setEngineScores(scores);
+    setOutputTrigger((t) => t + 1);
+  }, []);
 
   return (
     <section id="prioritization" className="relative py-24 md:py-32" ref={sectionRef}>
@@ -36,20 +49,36 @@ const PrioritizationSection = () => {
 
         {/* Desktop: horizontal pipeline */}
         <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr_auto_1fr] gap-0 items-start">
-          <SignalsColumn isInView={isInView} />
+          <SignalsColumn isInView={isInView} onSignalChange={handleSignalChange} />
           <PipelineConnector isInView={isInView} delay={1.0} />
-          <ScoringEngine isInView={isInView} />
+          <ScoringEngine
+            isInView={isInView}
+            processingTrigger={processingTrigger}
+            onProcessingComplete={handleProcessingComplete}
+          />
           <PipelineConnector isInView={isInView} delay={3.2} />
-          <RankedOutput isInView={isInView} />
+          <RankedOutput
+            isInView={isInView}
+            updateTrigger={outputTrigger}
+            engineScores={engineScores}
+          />
         </div>
 
         {/* Mobile: vertical pipeline */}
         <div className="lg:hidden space-y-0">
-          <SignalsColumn isInView={isInView} />
+          <SignalsColumn isInView={isInView} onSignalChange={handleSignalChange} />
           <PipelineConnector isInView={isInView} delay={1.0} direction="vertical" />
-          <ScoringEngine isInView={isInView} />
+          <ScoringEngine
+            isInView={isInView}
+            processingTrigger={processingTrigger}
+            onProcessingComplete={handleProcessingComplete}
+          />
           <PipelineConnector isInView={isInView} delay={3.2} direction="vertical" />
-          <RankedOutput isInView={isInView} />
+          <RankedOutput
+            isInView={isInView}
+            updateTrigger={outputTrigger}
+            engineScores={engineScores}
+          />
         </div>
 
         {/* Value statement */}
