@@ -4,7 +4,7 @@ import { AlertTriangle, Clock, TrendingDown } from "lucide-react";
 const problems = [
   {
     icon: TrendingDown,
-    title: "Feature factories ship fast—and wrong",
+    title: "Feature factories ship fast and wrong",
     description: "Teams with AI coding agents ship 10x faster, but without strategic alignment, they're just building the wrong things at scale.",
   },
   {
