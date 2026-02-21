@@ -1,64 +1,26 @@
-## Early Access onboarding page
 
-### Overview
+## Consolidate Early Access onto the Homepage
 
-Create a dedicated `/early-access` page that serves as the primary signup destination. It combines urgency, social proof, and a clear value proposition: sign up with your email and immediately receive access to the free PRD Review Analysis tool, with the full open beta coming soon.
+Instead of a separate `/early-access` page, the signup form will live directly on the homepage. All "Get Early Access" buttons will anchor-scroll to that form section.
 
-### Page structure (top to bottom)
+### Changes
 
-**1. Hero banner with live counter**
+**1. Add `id="early-access"` to CTASection (`src/components/CTASection.tsx`)**
+- Add `id="early-access"` to the `<section>` element so buttons can anchor to it.
 
-- Headline: "Join the product leaders shaping what's next"
-- A live animated counter showing how many people have already signed up (starts at a base number like 847, incremented randomly on page load to feel dynamic)
-- Animated counting effect using `useEffect` + `setInterval` that ticks up from a lower number to the "current" count
-- Pulsing green dot + "X PMs joined yesterday" social proof line
+**2. Update Navbar buttons (`src/components/Navbar.tsx`)**
+- Change the "Get Early Access" `<Link to="/early-access">` to an `<a href="/#early-access">` for both desktop and mobile menus, so it scrolls to the CTA form on the homepage.
 
-**2. What you get immediately (3 feature cards, horizontal on desktop)**
+**3. Update Hero CTA button (`src/components/Hero.tsx`)**
+- Change the "Get Early Access" `<Link to="/early-access">` to an `<a href="#early-access">` so it scrolls down to the form.
 
-- Card 1: "Access to our PRD review analysis" Submit your PRD and get an AI-powered evaluation of clarity, completeness, and prioritization gaps. Sent straight to your inbox.
-- Card 2: "Open beta access" Be among the first to use TrueNorth's prioritization engine when it launches. Early users shape the product.
-- Card 3: "Product strategy insights" Weekly curated insights on what top PMs are doing differently. No fluff, only signal.
+**4. Remove the dedicated Early Access page**
+- Delete `src/pages/EarlyAccess.tsx`.
+- Remove the `/early-access` route and import from `src/App.tsx`.
 
-Each card animates in sequentially with staggered delays.
+**5. Clean up Footer (`src/components/Footer.tsx`)**
+- If there are any remaining links to `/early-access`, update or remove them.
 
-**3. Email signup form (centered, prominent)**
-
-- Large email input + "Get instant access" button with arrow icon
-- Below the form: small trust line "No spam. Unsubscribe anytime."
-- On submit: the form transitions to a success state with confetti-style animation showing "Check your inbox -- your PRD review access is on its way"
-
-**4. Roadmap teaser ("What's coming")**
-
-- A minimal vertical timeline with 3 milestones:
-  - "Now" -- Free PRD review analysis (marked as available with a green check)
-  - "Q2 2026"  Open beta: full prioritization engine
-- Each milestone animates in on scroll
-
-**5. Bottom CTA**
-
-- "The best PMs don't wait for perfect tools. They shape them." with a secondary signup form or scroll-to-top button
-
-### Navigation updates
-
-- Add `/early-access` route in `App.tsx`
-- Update "Get Early Access" buttons in Navbar, Hero, and CTASection to link to `/early-access` instead of `#cta`
-- Keep the `#cta` section on Index as a secondary inline signup
-
-### Technical details
-
-**New file:** `src/pages/EarlyAccess.tsx`
-
-- Uses `framer-motion` for all animations (staggered cards, counter tick-up, success state transition)
-- Animated counter: `useState` + `useEffect` with `setInterval` that increments from `baseCount - 30` to `baseCount` over ~2 seconds
-- Email form with `useState` for email and submitted state (same pattern as CTASection)
-- Responsive: single column on mobile, 3-column grid for feature cards on desktop
-- Includes `Navbar` and `Footer` for consistent layout
-- Icons from `lucide-react`: `Mail`, `Sparkles`, `Users`, `Check`, `ArrowRight`, `Zap`, `FileText`
-
-**Modified files:**
-
-- `src/App.tsx` -- add `<Route path="/early-access" element={<EarlyAccess />} />`
-- `src/components/Navbar.tsx` -- change "Get Early Access" `href="#cta"` to `Link to="/early-access"`
-- `src/components/Hero.tsx` -- change "Get Early Access" `href="#cta"` to a `Link to="/early-access"`
-
-No new dependencies required.
+### Technical Notes
+- The existing hash-scroll logic in `Index.tsx` already handles `/#early-access` when navigating from other pages (e.g., 404).
+- The CTASection already has the full signup form with email submission to the database, so no functionality is lost.
