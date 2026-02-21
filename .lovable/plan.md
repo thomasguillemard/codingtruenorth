@@ -1,79 +1,59 @@
 
 
-## Animated Pipeline: Prioritization Engine Redesign
+## Workflow Section: Horizontal Animated Flow Redesign
 
-### Concept
+### Problem
 
-Replace the current static three-column layout with a **sequentially animated pipeline** that visually shows data "flowing" from raw signals through the scoring engine to the final ranked output. The animation triggers on scroll and plays out like a live demo of the product working.
+The current layout uses a vertical timeline with a static `1px` line on the left side (`bg-border`). This feels flat and disconnected -- the line doesn't animate, doesn't convey movement, and the vertical stacking doesn't communicate a "flow" or progression.
 
-### How It Works
+### Proposed Redesign
 
-The section will animate in **four timed phases** as the user scrolls into view:
+Replace the vertical timeline with a **horizontal left-to-right flow** on desktop, where each step is a card connected by animated SVG paths (similar to the Prioritization Engine pipeline). On mobile, it stacks vertically with animated downward connectors.
 
-**Phase 1 -- Raw Signals Arrive (0s-1s)**
-- Individual signal cards (Jira ticket, support thread, sales call transcript, analytics event) slide in from the left one by one
-- Each card looks like a mini-ticket with a realistic label (e.g., "JIRA-1042: Users can't export CSV", "Support: 47 users requesting dark mode")
-- A pulsing dot or streaming particle trail shows them feeding into a central funnel
+### Layout
 
-**Phase 2 -- Signals Funnel Into the Engine (1s-2s)**
-- The signal cards shrink/fade and visually "compress" into a central processing block
-- An animated connecting line (a dashed path or glowing trail) draws from the signals area to the scoring engine
-- The scoring engine block lights up, showing it's "processing"
-
-**Phase 3 -- Scoring Dimensions Activate (2s-3.5s)**
-- Inside the engine block, the three scoring bars (Demand, Strategic Fit, Effort) animate from 0% to their values sequentially
-- Each bar fills with a slight delay, like the engine is calculating each dimension one at a time
-- Small labels appear showing what each dimension evaluates
-
-**Phase 4 -- Ranked Output Emerges (3.5s-5s)**
-- An animated connecting line draws from the engine to the output panel
-- The ranked feature rows fade in one by one from top to bottom, each showing its confidence score
-- The top-ranked item gets a subtle glow highlight to draw attention to the "winner"
-
-### Visual Layout
-
-On desktop, the layout is a **horizontal pipeline** with animated SVG connector lines between the three stages. On mobile, it stacks vertically with downward-flowing connectors.
+**Desktop (4 columns with animated connectors between them):**
 
 ```text
-+------------------+       +------------------+       +------------------+
-|   RAW SIGNALS    | ----> |  SCORING ENGINE   | ----> |  RANKED OUTPUT   |
-|                  |       |                   |       |                  |
-| JIRA-1042        |  ~~~> | Demand    [====] |  ~~~> | 1. Collaboration |
-| Support #847     |       | Fit       [=====]|       | 2. Rate limiting |
-| Sales call note  |       | Effort    [===]  |       | 3. Report builder|
-| Analytics event  |       |                   |       | 4. Slack bot     |
-+------------------+       +------------------+       +------------------+
++------------+  ~~~>  +------------+  ~~~>  +------------+  ~~~>  +------------+
+| Discovery  |        | Prioritize |        | Spec Gen   |        | Handoff    |
+|   [icon]   |        |   [icon]   |        |   [icon]   |        |   [icon]   |
+| 01         |        | 02         |        | 03         |        | 04         |
+| desc...    |        | desc...    |        | desc...    |        | desc...    |
++------------+        +------------+        +------------+        +------------+
 ```
 
-The `---->` connectors are animated dashed lines or glowing particle trails that draw when data "flows" between stages.
+The `~~~>` connectors are animated dashed SVG lines with a traveling glow dot (reusing the same `PipelineConnector` pattern from the Prioritization section).
+
+**Mobile:** Cards stack vertically with short animated vertical connectors between them.
+
+### Animation Sequence
+
+Each step and connector animates sequentially on scroll using `useInView`:
+
+1. **Step 1 card** fades in (0s)
+2. **Connector 1** draws left-to-right (0.3s)
+3. **Step 2 card** fades in (0.6s)
+4. **Connector 2** draws (0.9s)
+5. **Step 3 card** fades in (1.2s)
+6. **Connector 3** draws (1.5s)
+7. **Step 4 card** fades in (1.8s) -- the final "Handoff" step gets a subtle accent glow
+
+### Visual Style for Each Card
+
+- Step number badge (01, 02, 03, 04) in a small rounded circle
+- Icon centered above the title
+- Title bold, description below in muted text
+- Bordered card with `bg-card` background, matching the rest of the site's design language
+- The last step (Handoff to Agents) uses the accent color to signal the "output" stage
 
 ### Technical Details
 
-**File modified:** `src/components/PrioritizationSection.tsx` (rewrite)
+- **File modified:** `src/components/WorkflowSection.tsx` (rewrite)
+- **Reuses:** `PipelineConnector` component from `src/components/prioritization/PipelineConnector.tsx` for the animated SVG connectors
+- **Animation:** `framer-motion` `useInView` with staggered delays for sequential reveal
+- **No new dependencies**
+- **Desktop grid:** `lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]` (4 cards + 3 connectors)
+- **Mobile:** Vertical stack with `PipelineConnector direction="vertical"` between each card
+- Removes the static `bg-border` line entirely
 
-**Data changes:**
-- Replace generic source labels with realistic ticket-like entries (e.g., "JIRA-1042: Users requesting CSV export", "Support: Dark mode requests (47 threads)")
-- Keep the scoring dimensions and ranked output data similar to current
-
-**Animation approach (Framer Motion):**
-- Use `useInView` to detect when the section enters the viewport and trigger the full sequence
-- Use staggered `variants` with increasing `delay` values across the four phases
-- Animated SVG connector paths using `motion.path` with `pathLength` animation (draws the line from 0 to 1)
-- The progress bars already animate with `whileInView` -- extend this pattern to the full pipeline
-
-**Connector lines:**
-- SVG `path` elements positioned between the three cards using absolute positioning
-- On desktop: horizontal curved paths; on mobile: short vertical paths
-- Animated with `motion.path` using `pathLength` going from 0 to 1
-- Styled with a dashed stroke in the primary color with a subtle glow
-
-**No new dependencies** -- all achievable with existing `framer-motion` SVG animation capabilities and `lucide-react` icons.
-
-**Mobile behavior:** Columns stack vertically. Connector lines become short downward arrows/paths between blocks. Step numbers remain for narrative clarity.
-
-### What This Achieves
-
-- The section now **feels like a product demo** -- visitors watch the engine work in real time
-- The flow from "messy raw signals" to "clean ranked output" is viscerally clear
-- The realistic ticket labels (Jira, support threads) make the product tangible and relatable to PM personas
-- The animated connectors create a sense of data movement that static columns can't achieve
