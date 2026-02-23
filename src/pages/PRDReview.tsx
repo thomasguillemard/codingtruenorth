@@ -83,13 +83,15 @@ const PRDReviewPage = () => {
               <span className="text-foreground font-medium">Completely free. No fluff.</span>
             </p>
 
-            <Link
-              to="/early-access"
+            <a
+              href="https://waypoint-ad2t.onrender.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-12 px-8 items-center gap-2 rounded-lg bg-accent text-accent-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-accent"
             >
               Get your free product concept review
               <ArrowRight size={16} />
-            </Link>
+            </a>
 
             <p className="text-xs text-muted-foreground mt-4">Sign up for early access → get your PRD analyzed first</p>
           </motion.div>
