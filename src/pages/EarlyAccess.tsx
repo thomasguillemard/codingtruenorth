@@ -136,9 +136,18 @@ const EarlyAccess = () => {
                 <FileText size={24} className="text-primary" />
               </div>
               <h3 className="text-xl font-bold mb-2">Free PRD Review Analysis</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                 Sign up for early access and get an AI-powered analysis of your PRD—highlighting gaps, vague requirements, and missing success metrics before your team writes a single line of code.
               </p>
+              <a
+                href="https://waypoint-ad2t.onrender.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:opacity-80 transition-opacity"
+              >
+                Try the MVP now
+                <ArrowRight size={14} />
+              </a>
             </div>
           </motion.div>
 
