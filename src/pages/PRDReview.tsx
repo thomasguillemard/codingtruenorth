@@ -1,6 +1,16 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, AlertTriangle, CheckCircle2, XCircle, BarChart3, Target, Users, Lightbulb, TrendingUp } from "lucide-react";
+import {
+  ArrowRight,
+  AlertTriangle,
+  CheckCircle2,
+  XCircle,
+  BarChart3,
+  Target,
+  Users,
+  Lightbulb,
+  TrendingUp,
+} from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -8,7 +18,8 @@ const analysisAreas = [
   {
     icon: Target,
     title: "Problem Definition",
-    description: "Is the problem real, specific, and worth solving? Or are you building a solution looking for a problem?",
+    description:
+      "Is the problem real, specific, and worth solving? Or are you building a solution looking for a problem?",
   },
   {
     icon: Users,
@@ -60,16 +71,15 @@ const PRDReviewPage = () => {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black leading-[1.1] mb-6">
-              Find out why your{" "}
-              <br className="hidden sm:block" />
-              product idea{" "}
-              <span className="text-gradient-warm">sucks</span>
+              Find out why your <br className="hidden sm:block" />
+              product idea <span className="text-gradient-warm">sucks</span>
               <br className="hidden sm:block" />
               <span className="text-muted-foreground text-3xl sm:text-4xl md:text-5xl">(and how to fix it)</span>
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
-              Submit your PRD and get a brutally honest AI-powered analysis that scores your product spec on clarity, feasibility, and market fit.{" "}
+              Submit your PRD and get a brutally honest AI-powered analysis that scores your product spec on clarity,
+              feasibility, and market fit.{" "}
               <span className="text-foreground font-medium">Completely free. No fluff.</span>
             </p>
 
@@ -77,18 +87,19 @@ const PRDReviewPage = () => {
               to="/early-access"
               className="inline-flex h-12 px-8 items-center gap-2 rounded-lg bg-accent text-accent-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-accent"
             >
-              Get Your Free PRD Review
+              Get your free product concept review
               <ArrowRight size={16} />
             </Link>
 
-            <p className="text-xs text-muted-foreground mt-4">
-              Sign up for early access → get your PRD analyzed first
-            </p>
+            <p className="text-xs text-muted-foreground mt-4">Sign up for early access → get your PRD analyzed first</p>
           </motion.div>
         </div>
 
         <div className="absolute top-1/4 left-8 w-64 h-64 rounded-full bg-accent/5 blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-8 w-48 h-48 rounded-full bg-primary/5 blur-3xl animate-float" style={{ animationDelay: "3s" }} />
+        <div
+          className="absolute bottom-1/4 right-8 w-48 h-48 rounded-full bg-primary/5 blur-3xl animate-float"
+          style={{ animationDelay: "3s" }}
+        />
       </section>
 
       {/* How it works */}
@@ -110,9 +121,21 @@ const PRDReviewPage = () => {
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              { step: "01", title: "Submit your PRD", desc: "Paste your product spec, brief, or even a rough idea. We've seen it all." },
-              { step: "02", title: "AI tears it apart", desc: "Our engine analyzes clarity, metrics, risks, and market fit in seconds." },
-              { step: "03", title: "Get your score & fixes", desc: "Receive a detailed scorecard with specific, actionable improvements." },
+              {
+                step: "01",
+                title: "Submit your PRD",
+                desc: "Paste your product spec, brief, or even a rough idea. We've seen it all.",
+              },
+              {
+                step: "02",
+                title: "AI tears it apart",
+                desc: "Our engine analyzes clarity, metrics, risks, and market fit in seconds.",
+              },
+              {
+                step: "03",
+                title: "Get your score & fixes",
+                desc: "Receive a detailed scorecard with specific, actionable improvements.",
+              },
             ].map((item, i) => (
               <motion.div
                 key={item.step}
