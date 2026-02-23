@@ -169,33 +169,6 @@ const PRDReviewPage = () => {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-20 md:py-28">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl mx-auto text-center"
-          >
-            <h2 className="text-3xl md:text-4xl font-black mb-4">
-              Ready to find out if your PRD{" "}
-              <span className="text-gradient-warm">holds up?</span>
-            </h2>
-            <p className="text-muted-foreground text-lg mb-8">
-              Join the early access list and be first in line for your free analysis. No credit card, no commitment—just the truth.
-            </p>
-            <Link
-              to="/early-access"
-              className="inline-flex h-12 px-8 items-center gap-2 rounded-lg bg-accent text-accent-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-accent"
-            >
-              Roast My PRD — It's Free
-              <ArrowRight size={16} />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
       <Footer />
     </div>
   );
