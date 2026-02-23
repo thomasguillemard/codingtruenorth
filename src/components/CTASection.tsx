@@ -38,7 +38,7 @@ const CTASection = () => {
 
           <h2 className="text-3xl md:text-5xl font-black mb-6">
             Stop building the{" "}
-            <span className="text-gradient-warm">wrong things faster</span>
+            <span className="text-gradient-warm">wrong things </span><span className="text-foreground">faster</span>
           </h2>
           <p className="text-muted-foreground text-lg mb-10">Join the waitlist for early access. Be among the first PMs to transform from ticket manager to product strategist and gain access to our free PRD review analysis.
 
