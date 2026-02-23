@@ -27,13 +27,12 @@ const PRDReviewSection = () => {
             </div>
 
             <h2 className="text-3xl md:text-4xl font-black leading-tight mb-4">
-              Does your product idea{" "}
-              <span className="text-gradient-warm">actually suck?</span>
+              Does your product idea <span className="text-gradient-warm">actually suck?</span>
             </h2>
 
             <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-              Most PRDs are filled with vague requirements, missing metrics, and wishful thinking.
-              Our AI tears yours apart—then tells you exactly how to fix it.
+              Most PRDs are filled with vague requirements, missing metrics, and wishful thinking. Our AI tears yours
+              apart—then tells you exactly how to fix it.
             </p>
 
             <p className="text-sm text-muted-foreground mb-8">
@@ -45,7 +44,7 @@ const PRDReviewSection = () => {
               to="/prd-review"
               className="inline-flex h-12 px-8 items-center gap-2 rounded-lg bg-accent text-accent-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-accent"
             >
-              Roast My PRD
+              Roast my product concept
               <ArrowRight size={16} />
             </Link>
           </motion.div>
