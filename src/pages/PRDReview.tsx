@@ -93,7 +93,7 @@ const PRDReviewPage = () => {
               <ArrowRight size={16} />
             </a>
 
-            <p className="text-xs text-muted-foreground mt-4">Sign up for early access → get your PRD analyzed first</p>
+            
           </motion.div>
         </div>
 
