@@ -30,7 +30,7 @@ const IntegrationsSection = () => {
             Plugs into your <span className="text-gradient-primary">existing stack</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            TrueNorth connects to the tools your team already uses without painful migration required.
+            TrueNorth connects to the tools your team already uses without painful migrations.
           </p>
         </motion.div>
 
