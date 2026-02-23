@@ -13,9 +13,9 @@ const CTASection = () => {
     if (!email || submitting) return;
     setSubmitting(true);
     try {
-      const { error } = await supabase
-        .from("early_access_signups")
-        .insert({ email: email.trim().toLowerCase() });
+      const { error } = await supabase.
+      from("early_access_signups").
+      insert({ email: email.trim().toLowerCase() });
       if (error && error.code !== "23505") throw error;
       setSubmitted(true);
     } catch (err) {
@@ -73,10 +73,10 @@ const CTASection = () => {
             </motion.div>
           }
 
-          <p className="text-xs text-muted-foreground mt-6">
-            Want a live demo instead?{" "}
-            <a href="#" className="text-primary hover:underline">Book a call with our team →</a>
-          </p>
+          
+
+
+
         </motion.div>
       </div>
     </section>);
