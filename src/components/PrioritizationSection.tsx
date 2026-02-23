@@ -40,8 +40,8 @@ const PrioritizationSection = () => {
             From raw signals to <span className="text-gradient-primary">ranked priorities</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            TrueNorth ingests feedback from every channel, weighs it against your business objectives, and outputs a
-            confidence-ranked backlog. No more spreadsheets, no more debates.
+            TrueNorth ingests feedback from every channel, weighs it against your business objectives + customer
+            profiles, and outputs a confidence-ranked backlog. No more prioritization spreadsheets, no more debates.
           </p>
         </motion.div>
 
