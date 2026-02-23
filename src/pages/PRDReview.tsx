@@ -78,8 +78,8 @@ const PRDReviewPage = () => {
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
-              Submit your PRD and get a brutally honest AI-powered analysis that scores your product spec on clarity,
-              feasibility, and market fit.{" "}
+              Submit your product concept and get a brutally honest AI-powered analysis that scores your product spec on
+              clarity, feasibility, and market fit.{" "}
               <span className="text-foreground font-medium">Completely free. No fluff.</span>
             </p>
 
@@ -92,8 +92,6 @@ const PRDReviewPage = () => {
               Get your free product concept review
               <ArrowRight size={16} />
             </a>
-
-            
           </motion.div>
         </div>
 
