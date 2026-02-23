@@ -15,22 +15,22 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-4xl mx-auto text-center"
-        >
+          className="max-w-4xl mx-auto text-center">
+
           {/* Badge button */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-          >
-            <Link
-              to="/early-access"
-              className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 mb-8 hover:bg-primary/10 transition-colors"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-glow" />
-              <span className="text-xs font-medium text-primary">Get Early Access</span>
-              <ArrowRight size={12} className="text-primary" />
-            </Link>
+            transition={{ delay: 0.2 }}>
+
+            
+
+
+
+
+
+
+
           </motion.div>
 
           {/* Headline */}
@@ -52,15 +52,15 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/early-access"
-              className="inline-flex h-12 px-8 items-center gap-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-primary"
-            >
+              className="inline-flex h-12 px-8 items-center gap-2 rounded-lg bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity glow-primary">
+
               Get Early Access
               <ArrowRight size={16} />
             </Link>
             <a
               href="#workflow"
-              className="inline-flex h-12 px-8 items-center gap-2 rounded-lg border border-border text-foreground font-medium text-sm hover:bg-secondary transition-colors"
-            >
+              className="inline-flex h-12 px-8 items-center gap-2 rounded-lg border border-border text-foreground font-medium text-sm hover:bg-secondary transition-colors">
+
               See How It Works
             </a>
           </div>
@@ -70,8 +70,8 @@ const Hero = () => {
         <div className="absolute top-1/4 left-8 w-64 h-64 rounded-full bg-primary/5 blur-3xl animate-float" />
         <div className="absolute bottom-1/4 right-8 w-48 h-48 rounded-full bg-accent/5 blur-3xl animate-float" style={{ animationDelay: "3s" }} />
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default Hero;
